@@ -1,7 +1,6 @@
 import express from "express";
-import cors from "cors";
 import pkg from "express-ipfilter";
-import TextGeneratorPipeline from "./models/TextGeneratorPipeline.js";
+import TextGeneratorPipeline from "./TextGeneratorPipeline.js";
 import { errorHandler } from "./error.handler.js";
 const { IpFilter } = pkg;
 
@@ -18,11 +17,6 @@ const validateRequest = (req, res, next) => {
 app.use(IpFilter([process.env.WHITELIST_IP], { mode: "allow" }));
 
 app.use(express.json());
-app.use(
-  cors({
-    methods: "POST, GET",
-  }),
-);
 
 app.post("/generate", validateRequest, async (req, res) => {
   try {
