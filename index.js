@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(
   cors({
     methods: "POST, GET",
-  })
+  }),
 );
 
 app.post("/generate", validateRequest, async (req, res) => {
@@ -33,7 +33,8 @@ app.post("/generate", validateRequest, async (req, res) => {
       max_new_tokens: 60,
       repetition_penalty: 1.2,
     });
-    res.json(out);
+
+    res.json({ result_text: out[0].generated_text });
     return;
   } catch (error) {
     console.error("Error in textGenerator route", error);
